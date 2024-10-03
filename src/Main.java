@@ -2,6 +2,7 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        Personnage premierPersonnage = new Personnage();
+        Menu menu = new Menu();
+        System.out.println(menu.start());
     }
 }
