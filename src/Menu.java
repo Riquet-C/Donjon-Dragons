@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class Menu {
     private final Scanner scanner;
+    private Game game;
 
     public Menu() {
         scanner = new Scanner(System.in);
@@ -10,24 +11,24 @@ public class Menu {
 
     // lancement du programme
     public void start() {
-
         while (true) {
             System.out.println("Taper votre choix: (Quit ou Creer)");
             String choice = scanner.nextLine();
-
-            if (choice.equalsIgnoreCase("Quit")) {
-                quit();
-            } else if (choice.equalsIgnoreCase("Creer")) {
-                Personnage personnage1 = createPersonnage();
-                System.out.println(personnage1);
-                handleModify(personnage1);
-                break;
-            } else {
-                System.out.println("Votre choix n'est pas valide. Veuiller choisir Creer ou Quit");
+            switch (choice) {
+                case "Quit":
+                    quit();
+                    break;
+                case "Creer":
+                    Personnage personnage1 = createPersonnage();
+                    System.out.println(personnage1);
+                    quitPlayModify(personnage1);
+                    break;
+                default:
+                    System.out.println("Votre choix n'est pas valide. Veuiller choisir Creer ou Quit");
             }
         }
-
     }
+
 
     // creer personnage (appeler par Start)
     public Personnage createPersonnage() {
@@ -62,7 +63,6 @@ public class Menu {
         String name = scanner.nextLine();
         personnage.setName(name);
 
-
         while (true) {
             System.out.println("Ecrire votre type: Guerrier ou Magicien");
             String type = scanner.nextLine();
@@ -82,22 +82,24 @@ public class Menu {
                 }
                 break;
             } else {
-                System.out.println("Votre choix n'est pas valide. Veuiller choisir Guerrier ou Magicien");
+                System.out.println("Votre choix n'est pas valide. Veuillez choisir Guerrier ou Magicien");
             }
         }
+        quitPlayModify(personnage);
     }
 
     // Modifier ou Jouer ou Quitter (lancé par start)
-    public void handleModify(Personnage personnage) {
-        System.out.println("Voulez vous quitter ou modifier votre personnage ? Quit ou Modifier");
+    public void quitPlayModify(Personnage personnage) {
+        System.out.println("Voulez vous quitter ou modifier votre personnage ? Quit / Modifier / Jouer");
         String choice = scanner.nextLine();
 
         if (choice.equalsIgnoreCase("Modifier")) {
             modifyPersonnage(personnage);
             System.out.println(personnage);
-        } /* else if (choice.equalsIgnoreCase("Jouer")) {
-            play();
-        } */ else {
+        } else if (choice.equalsIgnoreCase("Jouer")) {
+            game = new Game(personnage);
+            game.play();
+        } else {
             quit();
         }
     }

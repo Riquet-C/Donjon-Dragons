@@ -28,17 +28,21 @@ public class Personnage {
         this.name = name;
         this.type = type;
 
-        if (type.equalsIgnoreCase("Guerrier")) {
-            this.niveauDeVie = 10;
-            this.forceDattaque = 10;
-            this.equipementOffensif = new EquipementOffensif("Arme", "Massue", 3);
-            this.equipementDefensif = new EquipementDefensif("Bouclier", 2, "Bouclier d'acier");
-        }
-        if (type.equalsIgnoreCase("Magicien")) {
-            this.niveauDeVie = 6;
-            this.forceDattaque = 15;
-            this.equipementOffensif = new EquipementOffensif("Sort", "Eclair", 2);
-            this.equipementDefensif = new EquipementDefensif("Philtre", 3, "Philtre de défence");
+        switch (type) {
+            case "Guerrier":
+                this.niveauDeVie = 10;
+                this.forceDattaque = 10;
+                this.equipementOffensif = new EquipementOffensif("Arme", "Massue", 3);
+                this.equipementDefensif = new EquipementDefensif("Bouclier", 2, "Bouclier d'acier");
+                break;
+            case "Magicien":
+                this.niveauDeVie = 6;
+                this.forceDattaque = 15;
+                this.equipementOffensif = new EquipementOffensif("Sort", "Eclair", 2);
+                this.equipementDefensif = new EquipementDefensif("Philtre", 3, "Philtre de défence");
+                break;
+            default:
+                throw new IllegalArgumentException("Type de personnage inconnu: " + type);
         }
     }
 
