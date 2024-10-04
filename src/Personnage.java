@@ -7,6 +7,7 @@ public class Personnage {
     private String type;
     private int niveauDeVie;
     private int forceDattaque;
+
     private EquipementOffensif equipementOffensif;
     private EquipementDefensif equipementDefensif;
 
@@ -26,13 +27,14 @@ public class Personnage {
     public Personnage(String name, String type) {
         this.name = name;
         this.type = type;
-        if (Objects.equals(this.type, "Guerrier")) {
+
+        if (type.equalsIgnoreCase("Guerrier")) {
             this.niveauDeVie = 10;
             this.forceDattaque = 10;
             this.equipementOffensif = new EquipementOffensif("Arme", "Massue", 3);
             this.equipementDefensif = new EquipementDefensif("Bouclier", 2, "Bouclier d'acier");
         }
-        if (Objects.equals(this.type, "Magicien")) {
+        if (type.equalsIgnoreCase("Magicien")) {
             this.niveauDeVie = 6;
             this.forceDattaque = 15;
             this.equipementOffensif = new EquipementOffensif("Sort", "Eclair", 2);
@@ -54,6 +56,38 @@ public class Personnage {
 
     public String getType() {
         return type;
+    }
+
+    public EquipementDefensif getEquipementDefensif() {
+        return equipementDefensif;
+    }
+
+    public void setEquipementDefensif(EquipementDefensif equipementDefensif) {
+        this.equipementDefensif = equipementDefensif;
+    }
+
+    public EquipementOffensif getEquipementOffensif() {
+        return equipementOffensif;
+    }
+
+    public void setEquipementOffensif(EquipementOffensif equipementOffensif) {
+        this.equipementOffensif = equipementOffensif;
+    }
+
+    public int getNiveauDeVie() {
+        return niveauDeVie;
+    }
+
+    public void setNiveauDeVie(int niveauDeVie) {
+        this.niveauDeVie = niveauDeVie;
+    }
+
+    public int getForceDattaque() {
+        return forceDattaque;
+    }
+
+    public void setForceDattaque(int forceDattaque) {
+        this.forceDattaque = forceDattaque;
     }
 
     public String toString() {
