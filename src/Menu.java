@@ -1,5 +1,10 @@
-import java.util.Objects;
+import personnage.Guerriers;
+import personnage.Magiciens;
+import personnage.Personnage;
+
 import java.util.Scanner;
+
+import static java.lang.Thread.sleep;
 
 public class Menu {
     private final Scanner scanner;
@@ -11,48 +16,91 @@ public class Menu {
 
     // lancement du programme
     public void start() {
+        Personnage personnage1 = null;
         while (true) {
-            System.out.println("Taper votre choix: (Quit ou Creer)");
+            System.out.println("Taper votre choix: (1 = Quitter, 2 = Créer ou 3 = Jouer)?");
             String choice = scanner.nextLine();
-            switch (choice) {
-                case "Quit":
-                    quit();
-                    break;
-                case "Creer":
-                    Personnage personnage1 = createPersonnage();
-                    System.out.println(personnage1);
-                    quitPlayModify(personnage1);
-                    break;
-                default:
-                    System.out.println("Votre choix n'est pas valide. Veuiller choisir Creer ou Quit");
+            try {
+                switch (choice) {
+                    case "1":
+                        quit();
+                        break;
+                    case "2":
+                        personnage1 = createPersonnage();
+                        System.out.println(personnage1);
+                        quitPlayModify(personnage1);
+                        break;
+                    case "3":
+                        if (personnage1 != null) {
+                            game = new Game(personnage1);
+                            game.play();
+                        } else {
+                            throw new IllegalStateException("Aucun personnage n'a été créé. Veuillez créer un personnage avant de jouer.");
+                        }
+                }
+            } catch (Exception IllegalStateException) {
+                System.out.println(IllegalStateException.getMessage());
             }
+
         }
     }
 
+    // Modifier ou Jouer ou Quitter (lancé par start)
+    public void quitPlayModify(Personnage personnage) {
+        System.out.println("Voulez vous quitter ou modifier votre personnage ? (1 = Quitter, 2 = Créer ou 3 = Jouer) ?");
+        String choice = scanner.nextLine();
+
+        switch (choice) {
+            case "1":
+                quit();
+                break;
+            case "2":
+                modifyPersonnage(personnage);
+            case "3":
+                game = new Game(personnage);
+                game.play();
+                break;
+
+        }
+
+    }
 
     // creer personnage (appeler par Start)
     public Personnage createPersonnage() {
+
+        // Choix du Nom
         System.out.println("Ecrire votre nom:");
+
         String name = scanner.nextLine();
 
-        if (name.equalsIgnoreCase("quit")) {
-            quit();
+        switch (name) {
+            case "quit":
+                quit();
+                break;
+            case "":
+                name = "Toto";
+                break;
         }
 
-        System.out.println("Ecrire votre type: Guerrier ou Magicien");
+        // Choix du type de perso
+        System.out.println("Choisissez votre type: 1 = Guerrier ou 2 = Magicien");
         String type = scanner.nextLine();
 
-        Personnage personnage1 = new Personnage();
+        Personnage personnage1 = null;
 
         if (type.equalsIgnoreCase("quit")) {
             quit();
         } else if (isValideType(type)) {
-            personnage1 = new Personnage(name, type);
+            personnage1 = switch (type) {
+                case "1" -> new Guerriers(name);
+                case "2" -> new Magiciens(name);
+                default -> throw new IllegalStateException("Unexpected value: " + type);
+            };
         } else {
             System.out.println("Votre choix ne correspond pas à Magicien ou Guerrier, un personnage va être généré automatiquement");
-            personnage1 = new Personnage(name);
+            personnage1 = new Guerriers(name);
         }
-
+        System.out.println(personnage1);
         return personnage1;
     }
 
@@ -61,52 +109,119 @@ public class Menu {
 
         System.out.println("Ecrire votre nom:");
         String name = scanner.nextLine();
-        personnage.setName(name);
+
+        if (name != null && !name.isEmpty()) {
+            personnage.setName(name);
+        }
 
         while (true) {
-            System.out.println("Ecrire votre type: Guerrier ou Magicien");
+            System.out.println("Choisissez votre type: 1 = Guerrier ou 2 = Magicien");
             String type = scanner.nextLine();
 
             if (isValideType(type) && !type.equalsIgnoreCase(personnage.getType())) {
                 personnage.setType(type);
-                if (type.equalsIgnoreCase("magicien")) {
-                    personnage.setForceDattaque(6);
-                    personnage.setNiveauDeVie(15);
-                    personnage.setEquipementOffensif(new EquipementOffensif("Sort", "Eclair", 2));
-                    personnage.setEquipementDefensif(new EquipementDefensif("Philtre", 3, "Philtre de défence"));
-                } else if (type.equalsIgnoreCase("guerrier")) {
-                    personnage.setForceDattaque(10);
-                    personnage.setNiveauDeVie(10);
-                    personnage.setEquipementOffensif(new EquipementOffensif("Arme", "Massue", 3));
-                    personnage.setEquipementDefensif(new EquipementDefensif("Bouclier", 2, "Bouclier d'acier"));
+
+                switch (type.toLowerCase()) {
+                    case "1":
+                        personnage = new Guerriers(personnage.getName());
+                        break;
+                    case "2":
+                        personnage = new Magiciens(personnage.getName());
+                        break;
                 }
+
                 break;
+
             } else {
-                System.out.println("Votre choix n'est pas valide. Veuillez choisir Guerrier ou Magicien");
+                System.out.println("Votre choix n'est pas valide. Veuillez choisir 1 ou 2");
             }
         }
+        System.out.println(personnage);
         quitPlayModify(personnage);
     }
 
-    // Modifier ou Jouer ou Quitter (lancé par start)
-    public void quitPlayModify(Personnage personnage) {
-        System.out.println("Voulez vous quitter ou modifier votre personnage ? Quit / Modifier / Jouer");
-        String choice = scanner.nextLine();
-
-        if (choice.equalsIgnoreCase("Modifier")) {
-            modifyPersonnage(personnage);
-            System.out.println(personnage);
-        } else if (choice.equalsIgnoreCase("Jouer")) {
-            game = new Game(personnage);
-            game.play();
-        } else {
-            quit();
+    // Affichage durant le jeu
+    public void displayAvancement(int valueDice, int positionJoueur, Personnage personnage) {
+        System.out.println(
+                "'+-------+',\n" +
+                " '|       |',\n" +
+                " '|   "+ valueDice + "   |',\n" +
+                " '|       |',\n" +
+                " '+-------+'");
+        try {
+            Thread.sleep(400);  // Ajout du sleep avec une gestion d'exception
+        } catch (InterruptedException e) {
+            System.out.println("Le processus a été interrompu : " + e.getMessage());
         }
+        System.out.println(personnage.getName() + " avance à la case: " + positionJoueur);
+    }
+
+    public void displayFin() {
+        try {
+            Thread.sleep(400);  // Ajout du sleep avec une gestion d'exception
+        } catch (InterruptedException e) {
+            System.out.println("Le processus a été interrompu : " + e.getMessage());
+        }
+        System.out.println("Vous avez gagné !" +
+                "                                          _\n" +
+                "                                                     //\n" +
+                "                           _                        //\n" +
+                "                        ,-'_`----,_                //\n" +
+                "                       (  _~d~~_/ '~-----,        //\n" +
+                "                       (_<_~~~~_,----==='        //\n" +
+                "                  __    /  ~~~~=--~~~~          //\n" +
+                "                 /  \\   |   /~~                //\n" +
+                "                 \\_ |   \\   \\                 //\n" +
+                "                 (_ |    \\   \\_              //\n" +
+                "                   L|     \\_   \\_           //\n" +
+                "                   ||       \\_   \\_        //\n" +
+                "               _____U         \\_   \\_     //\n" +
+                "              |  __ \\           \\_   \\_  //\n" +
+                "              |  \\_\\_|            \\_   \\//\n" +
+                "              |______|              \\_ //_\n" +
+                "              |_______\\               //  \\\n" +
+                "               |  |    \\             //\\   \\\n" +
+                "               |  |     \\-_         //  |   \\\n" +
+                "               |  '-,_ / / ,-______//   |__  \\\n" +
+                "               \\----  '-/_/ /||||_  ~),-   ~--\\\n" +
+                "                ~\\_      /-/_'~~~/\\_)/_/       ~\\\n" +
+                "           _       \\_   /  / /~~/ /-__ `-/_  ,   |\n" +
+                "         _/ ),--,    \\_/  /  | / //   -,__ `/_ | |\n" +
+                "        /   ',-, |,_   \\_/  / / //    /   \\  \\// |\n" +
+                "       /      _)    )-~~(   |/ /_Z--_/_   /    `/\n" +
+                "      |  /    _~) /~    -`--/ /~ \\   \\ ~-/      |\n" +
+                "      | /    ' ~,,--,  (   / /`\\__\\_--~~~      |\n" +
+                "      \\|        /      )  / /~~              _/\n" +
+                "        \\_            / _/ /          \\    _/\n" +
+                "          \\          | // /            | _/\n" +
+                "           `-__/     |// /            /_-\n" +
+                "              `--,__/ / /          __--\n" +
+                "                 _-' / /       __--\n" +
+                "              _-'   / /    __--\n" +
+                "           _-'     / / __-- --___\n" +
+                "        _-'   ___-/ /--  ~~~---__`--,___\n" +
+                "      _/   __/,--/ /,--,--_____ _~`-----'-----,\n" +
+                "   ,-~ __,- _//_/ //__/__/_/_/_//~~~~--r-,.\\  )\n" +
+                "  |   /  _/~,/ / /             ~~~~~~~~`-`) | (\n" +
+                "  \\_,| ./ ,'  / /                       (~  o  )\n" +
+                "  |_,|~|_/   / /                         ) _  /\n" +
+                "  (_,|~||   / /                          |/ )/\n" +
+                "  (_// /|  / /                           / /\n" +
+                "  | | ||  / /                            |/\n" +
+                "  / | || / /\n" +
+                " /  | ||/ /      \n"+
+                "(_ | ,'/ /  \n" +
+                "( `/ ||\\/             \n" +
+                " \\/ | \\_\n" +
+                " |  \\_  `_\n" +
+                "  \\ ,-,\\,-,`,\n" +
+                "   \\_\\_\\\\\\ \\ \\\n" +
+                "    ~~~~~~~~~~~");
     }
 
     // de quoi eviter la redondance
     public boolean isValideType(String type) {
-        return type.equalsIgnoreCase("guerrier") || type.equalsIgnoreCase("magicien");
+        return type.equalsIgnoreCase("1") || type.equalsIgnoreCase("2");
     }
 
     public void quit() {
