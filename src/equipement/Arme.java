@@ -1,11 +1,16 @@
 package equipement;
+import Case.*;
 
-public class Arme extends EquipementOffensif {
+public class Arme extends EquipementOffensif implements Case {
 
-    public Arme() {
-        this.setType("equipement.Arme");
-        this.setName("Massue");
-        this.setNiveauAttaque(3);
+    public Arme(String type, String name, int attaque) {
+        this.setType(type);
+        this.setName(name);
+        this.setNiveauAttaque(attaque);
     }
 
+    @Override
+    public String quelCase() {
+        return this.getType();
+    }
 }

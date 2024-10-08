@@ -3,8 +3,8 @@ package equipement;
 public class Philtre extends EquipementDefensif {
 
     public Philtre() {
-        this.setName("equipement.Philtre de défence");
-        this.setType("equipement.Philtre");
+        this.setName("Philtre de défence");
+        this.setType("Philtre");
         this.setniveauDefence(3);
     }
 }
