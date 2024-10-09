@@ -1,7 +1,7 @@
 package personnage;
 
-import equipement.EquipementDefensif;
-import equipement.EquipementOffensif;
+import equipements.defensif.EquipementDefensif;
+import equipements.offensif.EquipementOffensif;
 
 abstract public class Personnage {
 

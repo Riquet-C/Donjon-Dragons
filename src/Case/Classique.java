@@ -1,5 +1,7 @@
 package Case;
 
+import personnage.Personnage;
+
 public class Classique implements Case {
 
     private String type;
@@ -9,7 +11,7 @@ public class Classique implements Case {
     }
 
     @Override
-    public String quelCase() {
-        return String.valueOf(type);
+    public void interact(Personnage personnage) {
+        System.out.println("Je suis une case vide, repose toi" + personnage.toString() );
     }
 }

@@ -1,15 +1,15 @@
 package personnage;
 
-import equipement.Arme;
-import equipement.Bouclier;
+import equipements.offensif.Epee;
+import equipements.defensif.Bouclier;
 
 public class Guerriers extends Personnage {
 
     public Guerriers(String name) {
         super(name, "Guerrier");
         this.setNiveauDeVie(10);
-        this.setForceDattaque(10);
-        this.setEquipementOffensif(new Arme("Arme", "Massue", 3));
+        this.setForceDattaque(10 + getEquipementOffensif().getNiveauAttaque());
+        this.setEquipementOffensif(new Epee());
         this.setEquipementDefensif(new Bouclier());
     }
 

@@ -33,7 +33,7 @@ public class Menu {
                     case "3":
                         if (personnage1 != null) {
                             game = new Game(personnage1);
-                            game.play();
+                            game.play(-1);
                         } else {
                             throw new IllegalStateException("Aucun personnage n'a été créé. Veuillez créer un personnage avant de jouer.");
                         }
@@ -45,8 +45,8 @@ public class Menu {
         }
     }
 
-    // Modifier ou Jouer ou Quitter (lancé par start)
-    public void quitPlayModify(Personnage personnage) {
+    // Modifier ou Jouer ou Quitter AVANT d'avoir commencé la partie(lancé par start)
+    private void quitPlayModify(Personnage personnage) {
         System.out.println("Voulez vous quitter ou modifier votre personnage ? (1 = Quitter, 2 = Créer ou 3 = Jouer) ?");
         String choice = scanner.nextLine();
 
@@ -58,15 +58,32 @@ public class Menu {
                 modifyPersonnage(personnage);
             case "3":
                 game = new Game(personnage);
-                game.play();
+                game.play(-1);
                 break;
 
         }
 
     }
 
+    // Continuer le jeu, voir les stats ou quitter (en cours de partie)
+    public void playOrQuit(Personnage personnage, int positionJoueur) {
+        System.out.println("Appuyer sur c pour continuer // q pour quitter la partie // s pour voir vos stats");
+        String choice = scanner.nextLine();
+        switch (choice) {
+            case "c":
+                game = new Game(personnage);
+                game.play(positionJoueur);
+                break;
+            case "q":
+                System.out.println(personnage);
+            case "s":
+                quit();
+                break;
+        }
+    }
+
     // creer personnage (appeler par Start)
-    public Personnage createPersonnage() {
+    private Personnage createPersonnage() {
 
         // Choix du Nom
         System.out.println("Ecrire votre nom:");
@@ -105,7 +122,7 @@ public class Menu {
     }
 
     // modifier personnage
-    public void modifyPersonnage(Personnage personnage) {
+    private void modifyPersonnage(Personnage personnage) {
 
         System.out.println("Ecrire votre nom:");
         String name = scanner.nextLine();
@@ -153,7 +170,7 @@ public class Menu {
         } catch (InterruptedException e) {
             System.out.println("Le processus a été interrompu : " + e.getMessage());
         }
-        System.out.println(personnage.getName() + " avance à la case: " + positionJoueur);
+        System.out.println(personnage.getName() + " avance à la case: " + (positionJoueur+1));
     }
 
     public void displayFin() {

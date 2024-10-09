@@ -1,4 +1,4 @@
-package equipement;
+package equipements.defensif;
 
 abstract public class EquipementDefensif {
     private String type;

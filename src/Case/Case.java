@@ -1,5 +1,7 @@
 package Case;
 
+import personnage.Personnage;
+
 public interface Case {
-    String quelCase();
+    void interact(Personnage personnage);
 }
