@@ -12,40 +12,37 @@ import Case.*;
 public class Game {
 
     public final List<Case> plateau;
-    private final Personnage joueur;
     private int positionJoueur;
     private final Menu menu;
 
-    public Game(Personnage personnage) {
+    public Game() {
         menu = new Menu();
         plateau = new ArrayList<>();
         addToPlateau();
-        this.joueur = personnage;
     }
 
-//    private void initGame() {
-//        String choice = menu.start();
-//        getChoice(choice);
-//    }
-//
-//    private void getChoice(String choice) {
-//        try {
-//            Personnage personnage1 = null;
-//            switch (choice) {
-//                case "1":
-//                    menu.quit();
-//                    break;
-//                case "2":
-//                    personnage1 = menu.createPersonnage();
-//                    menu.quitPlayModify(personnage1);
-//                    break;
-//                default:
-//                    throw new IllegalStateException("Aucun personnage n'a été créé. Veuillez créer un personnage avant de jouer.");
-//            }
-//        } catch (Exception IllegalStateException) {
-//            System.out.println(IllegalStateException.getMessage());
-//        }
-//    }
+    public void initGame() {
+        String choice = menu.displayMenu();
+        letFirstChoice(choice);
+    }
+
+    private void letFirstChoice(String choice) {
+        try {
+            Personnage personnage1 = null;
+            switch (choice) {
+                case "1":
+                    menu.quit();
+                    break;
+                case "2":
+                    personnage1 = menu.createPersonnage();
+                    break;
+                default:
+                    throw new IllegalStateException("Aucun personnage n'a été créé. Veuillez créer un personnage avant de poursuivre.");
+            }
+        } catch (Exception IllegalStateException) {
+            System.out.println(IllegalStateException.getMessage());
+        }
+    }
 
     private void addToPlateau() {
         for (int i = 0; i < 16; i++) {
