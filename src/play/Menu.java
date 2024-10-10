@@ -16,55 +16,31 @@ public class Menu {
         scanner = new Scanner(System.in);
     }
 
-    public String displayMenu(){
+    public String displayMenuStart(){
         System.out.println("=== Menu du Jeu ===");
-        System.out.println("1. Jouer un tour");
+        System.out.println("1. Quitter");
         System.out.println("2. Creer un personnage");
         System.out.print("Choisissez une option : ");
         return scanner.nextLine();
     }
 
+    public String displayMenuModify(Personnage personnage){
+        System.out.println("=== Menu du Jeu ===");
+        System.out.println("1. Quitter");
+        System.out.println("2. Modifier un personnage");
+        System.out.println("3. Jouer");
+        System.out.print("Choisissez une option : ");
+        return scanner.nextLine();
+    }
 
-//    // lancement du programme
-//    public String firstMenu() {
-//        System.out.println("Taper votre choix: (1 = Quitter, 2 = Créer)?");
-//        return scanner.nextLine();
-//    }
-//
-//    // Modifier ou Jouer ou Quitter AVANT d'avoir commencé la partie(lancé par start)
-//    public String quitPlayModify(Personnage personnage) throws PersonnageHorsPlateauException {
-//        System.out.println("Voulez vous quitter ou modifier votre personnage ? (1 = Quitter, 2 = Créer ou 3 = Jouer) ?");
-//        return scanner.nextLine();
-//
-////        switch (choice) {
-////            case "1":
-////                quit();
-////                break;
-////            case "2":
-////                modifyPersonnage(personnage);
-////
-////            case "3":
-//////             play();
-////                break;
-//        }
-//    }
-//
-//    // Continuer le jeu, voir les stats ou quitter (en cours de partie)
-//    public void playOrQuit(Personnage personnage, int positionJoueur) throws PersonnageHorsPlateauException {
-//        System.out.println("Appuyer sur 1 pour continuer // 2 pour quitter la partie // s pour voir vos stats");
-//        String choice = scanner.nextLine();
-//        switch (choice) {
-//            case "1":
-//                game = new Game();
-//                game.play(positionJoueur);
-//                break;
-//            case "2":
-//                quit();
-//                break;
-//            case "s":
-//                System.out.println(personnage);
-//        }
-//    }
+    public String displayMenuInGame(){
+        System.out.println("=== Menu du Jeu ===");
+        System.out.println("1. Quitter");
+        System.out.println("2. Statistique du personnage");
+        System.out.println("3. Continuer");
+        System.out.print("Choisissez une option : ");
+        return scanner.nextLine();
+    }
 
     // creer personnage (appeler par Start)
     public Personnage createPersonnage() {
@@ -105,7 +81,7 @@ public class Menu {
     }
 
     // modifier personnage
-    private void modifyPersonnage(Personnage personnage) throws PersonnageHorsPlateauException {
+    public void modifyPersonnage(Personnage personnage) throws PersonnageHorsPlateauException {
 
         System.out.println("Ecrire votre nom:");
         String name = scanner.nextLine();
@@ -137,7 +113,6 @@ public class Menu {
             }
         }
         System.out.println(personnage);
-        quitPlayModify(personnage);
     }
 
     // Affichage durant le jeu
