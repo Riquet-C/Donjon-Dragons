@@ -1,7 +1,9 @@
 package Case.ennemis;
-
-import Case.Case;
+import Case.*;
+import play.Game;
 import personnage.Personnage;
+import play.Menu;
+
 
 public abstract class Ennemis implements Case {
 
@@ -9,6 +11,7 @@ public abstract class Ennemis implements Case {
     private int life;
     private String type;
     private String name;
+    private Game game;
 
     public Ennemis(String nom, int attaque, int life) {
         this.type = "Ennemis";
@@ -23,10 +26,20 @@ public abstract class Ennemis implements Case {
         if (life > 0) {
             personnage.setNiveauDeVie(personnage.getNiveauDeVie() - attaque);
             System.out.println("L'ennemis à encore " + life + " points de vies");
-            System.out.println("Il vous reste " + personnage.getNiveauDeVie() + " points de vies");
+            majPersonnageLife(personnage);
+
         } else {
-//            plateau.set(positionJoueur, new Classique());
-            System.out.println("Bravo, vous avez tuer l'ennemis");
+            System.out.println("Bravo, vous avez tuer l'ennemis sans être touché");
+        }
+    }
+
+    private void majPersonnageLife(Personnage personnage) {
+        if (personnage.getNiveauDeVie() <= 0) {
+            System.out.println("Vous êtes mort");
+            Menu menu = new Menu();
+            menu.quit();
+        } else {
+            System.out.println("Il vous reste " + personnage.getNiveauDeVie() + " points de vies");
         }
     }
 
@@ -58,8 +71,5 @@ public abstract class Ennemis implements Case {
         this.attaque = attaque;
     }
 
-    public String getType() {
-        return type;
-    }
 
 }

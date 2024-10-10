@@ -28,8 +28,8 @@ abstract public class Personnage {
                 "Name: " + name + "\n" +
                 "Type: " + type + "\n" +
                 "Niveau de vie :" + niveauDeVie + "\n" +
-                "Force d'attaque: " + (forceDattaque + (equipementOffensif != null ? equipementOffensif.getNiveauAttaque() : 0)) + "\n \n" +
-                (equipementOffensif != null ? "\n \n" + equipementOffensif + "\n \n" : "Pas d'arme") +
+               "Force d'attaque: " + (forceDattaque + (equipementOffensif != null ? equipementOffensif.getNiveauAttaque() : 0)) + "\n \n" +
+               (equipementOffensif != null ? "\n \n" + equipementOffensif + "\n \n" : "Pas d'arme") +
                 (equipementDefensif != null ? "\n \n" + equipementDefensif + "\n \n" : "Pas d'équipement");
     }
 

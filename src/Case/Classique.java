@@ -1,5 +1,4 @@
 package Case;
-
 import personnage.Personnage;
 
 public class Classique implements Case {

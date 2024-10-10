@@ -2,15 +2,26 @@ package equipements.potion;
 import Case.*;
 import personnage.Personnage;
 
-public class Potions implements Case {
-    private String type;
-    private String name;
-    private int ajoutVie;
+public abstract class Potions implements Case {
+    private final String type;
+    private final String name;
+    private final int ajoutVie;
 
-    public Potions(String name, int ajoutVie){
-        this.type = "Potion";
+    // attributs couleurs
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_RESET = "\u001B[0m";
+
+    public Potions(String type, String name, int ajoutVie){
+        this.type = type;
         this.name = name;
         this.ajoutVie = ajoutVie;
+    }
+
+    public String toString() {
+        return ANSI_PURPLE + "Potions: " + ANSI_RESET +
+                "\nname: " + name + "\n" +
+                "type: " + type + "\n" +
+                "Nombre de point de vie ajouté: +" + ajoutVie;
     }
 
     @Override
@@ -19,4 +30,5 @@ public class Potions implements Case {
         personnage.setNiveauDeVie( personnage.getNiveauDeVie() + ajoutVie);
         System.out.println("Vos nouveaux pdv : " + personnage.getNiveauDeVie());
     }
+
 }

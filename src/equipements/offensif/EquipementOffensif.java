@@ -1,8 +1,9 @@
 package equipements.offensif;
+
 import Case.*;
 import personnage.Personnage;
 
-abstract public class EquipementOffensif implements Case{
+abstract public class EquipementOffensif implements Case {
 
     private String type;
     private int niveauAttaque;
@@ -20,15 +21,15 @@ abstract public class EquipementOffensif implements Case{
                 "niveau d'attaque: +" + niveauAttaque;
     }
 
-public void modifyEquipementOffensif(Personnage personnage, EquipementOffensif newArme){
-    if (personnage.getEquipementOffensif().getNiveauAttaque() < getNiveauAttaque()) {
-        personnage.setEquipementOffensif(newArme);
-        personnage.setForceDattaque(getNiveauAttaque() + personnage.getForceDattaque());
-        System.out.println("Voici votre nouvel arme" + personnage.getEquipementOffensif().getNiveauAttaque() + "Votre nouvelle force d'attaque est: " + personnage.getForceDattaque());
-    } else {
-        System.out.println("Vous aviez trouver une arme moins bonne que la votre... Vous décidez de ne pas la prendre");
+    public void modifyEquipementOffensif(Personnage personnage, EquipementOffensif newArme) {
+        if (personnage.getEquipementOffensif().getNiveauAttaque() < getNiveauAttaque()) {
+            personnage.setEquipementOffensif(newArme);
+            personnage.setForceDattaque(getNiveauAttaque() + personnage.getForceDattaque());
+            System.out.println("Voici votre nouvel arme" + personnage.getEquipementOffensif().getNiveauAttaque() + "Votre nouvelle force d'attaque est: " + personnage.getForceDattaque());
+        } else {
+            System.out.println("Vous aviez trouver une arme moins bonne que la votre... Vous décidez de ne pas la prendre");
+        }
     }
-}
 
     // Setter & Getter
     public String getType() {
