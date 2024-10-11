@@ -1,16 +1,15 @@
 package Case;
 import personnage.Personnage;
+import play.Menu;
 
 public class Classique implements Case {
 
-    private String type;
-
     public Classique() {
-        this.type = "Classique";
     }
 
     @Override
-    public void interact(Personnage personnage) {
-        System.out.println("Je suis une case vide, repose toi" + personnage.toString() );
+    public void interact(Personnage personnage, Menu menu) {
+        System.out.println("Vous arrivez sur une clairière déserte, balayée par le vent. Rien ne semble s'y passer...");
+        System.out.println("Le silence est inquiétant. Vous reprenez votre souffle avant de continuer.");
     }
 }

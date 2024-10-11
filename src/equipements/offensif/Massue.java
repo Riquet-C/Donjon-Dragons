@@ -1,5 +1,6 @@
 package equipements.offensif;
 import personnage.Personnage;
+import play.Menu;
 import java.util.Objects;
 
 public class Massue extends EquipementOffensif {
@@ -11,13 +12,12 @@ public class Massue extends EquipementOffensif {
     }
 
     @Override
-    public void interact(Personnage personnage) {
-        System.out.println("Vous avez activée une surprise : Voyons voir de quoi il s'agit");
-
+    public void interact(Personnage personnage, Menu menu) {
+        menu.displayFindEquipmentOffensif(this);
         if (Objects.equals(personnage.getType(), "Guerrier")) {
-            modifyEquipementOffensif(personnage, this);
+            modifyEquipmentOffensif(personnage, this, menu);
         } else {
-            System.out.println("L'arme que vous aviez trouvé n'est pas pour vous");
+            menu.displayNotAutorizeEquipmentOffensif();
         }
     }
 

@@ -1,6 +1,7 @@
 package equipements.offensif;
 
 import personnage.Personnage;
+import play.Menu;
 
 import java.util.Objects;
 
@@ -13,11 +14,12 @@ public class Eclair extends EquipementOffensif {
     }
 
     @Override
-    public void interact(Personnage personnage) {
+    public void interact(Personnage personnage, Menu menu) {
+        menu.displayFindEquipmentOffensif(this);
         if (Objects.equals(personnage.getType(), "Magicien")) {
-            modifyEquipementOffensif(personnage, this);
+            modifyEquipmentOffensif(personnage, this, menu);
         } else {
-            System.out.println("L'arme que vous aviez trouvé n'est pas pour vous");
+            menu.displayNotAutorizeEquipmentOffensif();
         }
     }
 

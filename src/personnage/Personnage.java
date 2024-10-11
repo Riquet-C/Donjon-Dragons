@@ -2,9 +2,17 @@ package personnage;
 
 import equipements.defensif.EquipementDefensif;
 import equipements.offensif.EquipementOffensif;
+import equipements.potion.Potions;
+import play.Menu;
+
+import java.util.ArrayList;
+import java.util.List;
 
 abstract public class Personnage {
 
+    // attributs couleurs
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_RESET = "\u001B[0m";
     // attributs
     private String name;
     private String type;
@@ -12,27 +20,32 @@ abstract public class Personnage {
     private int forceDattaque;
     private EquipementOffensif equipementOffensif;
     private EquipementDefensif equipementDefensif;
-
-    // attributs couleurs
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_RESET = "\u001B[0m";
+    private final List<Potions> inventaire;
 
     // constructeur
     public Personnage(String name, String type) {
         this.name = name;
         this.type = type;
+        this.inventaire = new ArrayList<>();
     }
 
     public String toString() {
-        return ANSI_PURPLE + "\npersonnage.Personnage \n \n" + ANSI_RESET +
-                "Name: " + name + "\n" +
-                "Type: " + type + "\n" +
-                "Niveau de vie :" + niveauDeVie + "\n" +
-               "Force d'attaque: " + (forceDattaque + (equipementOffensif != null ? equipementOffensif.getNiveauAttaque() : 0)) + "\n \n" +
-               (equipementOffensif != null ? "\n \n" + equipementOffensif + "\n \n" : "Pas d'arme") +
-                (equipementDefensif != null ? "\n \n" + equipementDefensif + "\n \n" : "Pas d'équipement");
+        return ANSI_PURPLE + "\n=== Détails du Personnage ===\n" + ANSI_RESET + "Name: " + name + "\n" + "Type: " + type + "\n" + "Niveau de vie :" + niveauDeVie + "\n" + "Force d'attaque: " + (forceDattaque + (equipementOffensif != null ? equipementOffensif.getNiveauAttaque() : 0)) + "\n" + ANSI_PURPLE + "\n--- Équipement Offensif ---\n" + ANSI_RESET + (equipementOffensif != null ? equipementOffensif.getName() + "\n" : "Pas d'arme") + ANSI_PURPLE + "\n--- Équipement Defensif ---\n" + ANSI_RESET + (equipementDefensif != null ? equipementDefensif.getName() + "\n" : "Pas d'équipement") + ANSI_PURPLE + "============================" + ANSI_RESET;
     }
 
+    public void addPotion(Potions potion) {
+        inventaire.add(potion);
+    }
+
+    public void usePotion(Menu menu) {
+        if (inventaire.isEmpty()) {
+            menu.displayInventaireEmpty();
+            return;
+        }
+        setNiveauDeVie(getNiveauDeVie() + inventaire.getFirst().getAjoutVie());
+        menu.displayUsePotion(this);
+        inventaire.removeFirst();
+    }
 
     // Setter & Getter
     public String setName(String name) {
@@ -51,11 +64,7 @@ abstract public class Personnage {
         return type;
     }
 
-    public EquipementDefensif getEquipementDefensif() {
-        return equipementDefensif;
-    }
-
-    public void setEquipementDefensif(EquipementDefensif equipementDefensif) {
+    protected void setEquipementDefensif(EquipementDefensif equipementDefensif) {
         this.equipementDefensif = equipementDefensif;
     }
 
