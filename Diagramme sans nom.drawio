@@ -115,10 +115,10 @@
         <mxCell id="Gl2zfpZ1iNKv7wAVs_t6-81" value="+ quitPlayModify: menu général" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="wySpvfk1D2mx7wKg0cp0-5">
           <mxGeometry y="112" width="192" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="Gl2zfpZ1iNKv7wAVs_t6-82" value="+ createPersonnage: personnage" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="wySpvfk1D2mx7wKg0cp0-5">
+        <mxCell id="Gl2zfpZ1iNKv7wAVs_t6-82" value="+ createPersonnage: character" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="wySpvfk1D2mx7wKg0cp0-5">
           <mxGeometry y="138" width="192" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="Gl2zfpZ1iNKv7wAVs_t6-83" value="+ modifyPersonnage: personnage" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="wySpvfk1D2mx7wKg0cp0-5">
+        <mxCell id="Gl2zfpZ1iNKv7wAVs_t6-83" value="+ modifyPersonnage: character" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="wySpvfk1D2mx7wKg0cp0-5">
           <mxGeometry y="164" width="192" height="26" as="geometry" />
         </mxCell>
         <mxCell id="Gl2zfpZ1iNKv7wAVs_t6-84" value="+ displayAvancement: void" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="wySpvfk1D2mx7wKg0cp0-5">
@@ -138,7 +138,7 @@
             <mxRectangle x="550" y="140" width="160" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Gl2zfpZ1iNKv7wAVs_t6-88" value="- joueur: personnage" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="wySpvfk1D2mx7wKg0cp0-8">
+        <mxCell id="Gl2zfpZ1iNKv7wAVs_t6-88" value="- joueur: character" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="wySpvfk1D2mx7wKg0cp0-8">
           <mxGeometry y="26" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="Gl2zfpZ1iNKv7wAVs_t6-89" value="- positionJoueur : int" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="wySpvfk1D2mx7wKg0cp0-8">

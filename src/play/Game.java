@@ -1,154 +1,135 @@
 package play;
 
-import Case.ennemis.*;
-import equipements.offensif.*;
-import equipements.potion.*;
-import personnage.Personnage;
+import interactable.ennemies.*;
+import equipments.offensive.*;
+import equipments.potion.*;
+import character.Character;
 
 import java.util.*;
 
-import Case.*;
+import interactable.*;
 
 public class Game {
 
-    public final List<Case> plateau;
+    public final List<Interactable> board;
     private final Menu menu;
-    private Personnage personnage1;
-    private int positionJoueur;
+    private Character character1;
+    private int playerPosition;
 
     public Game() {
         menu = new Menu();
-        plateau = new ArrayList<>();
+        board = new ArrayList<>();
         addToPlateau();
     }
 
     public void initGame() {
-        while (personnage1 == null) {
-            String choice = menu.displayMenuStart();
+        while (character1 == null) {
+            String choice = menu.displayStart();
             letFirstChoice(choice);
         }
         String choice2 = menu.displayMenuModify();
-        letModifyChoice(choice2, personnage1);
+        letModifyChoice(choice2, character1);
 
     }
 
     private void letFirstChoice(String choice) {
-        try {
-            switch (choice) {
-                case "1":
-                    menu.quit();
-                    break;
-                case "2":
-                    personnage1 = menu.createPersonnage();
-                    break;
-                default:
-                    throw new IllegalStateException("Aucun personnage n'a été créé. Veuillez créer un personnage avant de poursuivre.");
-            }
-        } catch (Exception IllegalStateException) {
-            System.out.println(IllegalStateException.getMessage());
+        switch (choice) {
+            case "1":
+                menu.quit();
+                break;
+            case "2":
+                character1 = menu.createPersonnage();
         }
     }
 
-    private void letModifyChoice(String choice, Personnage personnage) {
-        try {
-            switch (choice) {
-                case "1":
-                    menu.quit();
-                    break;
-                case "2":
-                    menu.modifyPersonnage(personnage);
-                    String choice2 = menu.displayMenuModify();
-                    letModifyChoice(choice2, personnage1);
-                    break;
-                case "3":
-                    play(-1);
-                default:
-                    throw new IllegalStateException("Aucun personnage n'a été créé. Veuillez créer un personnage avant de poursuivre.");
-            }
-        } catch (Exception IllegalStateException) {
-            System.out.println(IllegalStateException.getMessage());
+    private void letModifyChoice(String choice, Character character) {
+        switch (choice) {
+            case "1":
+                menu.quit();
+                break;
+            case "2":
+                menu.modifyCharacter(character);
+                String choice2 = menu.displayMenuModify();
+                letModifyChoice(choice2, character1);
+                break;
+            case "3":
+                play(-1);
         }
     }
 
-    private void letPlayChoice(String choice, Personnage personnage, int positionJoueur) {
-        try {
-            switch (choice) {
-                case "1":
-                    menu.quit();
-                    break;
-                case "2":
-                    System.out.println(personnage);
-                    break;
-                case "3":
-                    play(positionJoueur);
-                case "4":
-                    personnage.usePotion(menu);
-                    String choice2 = menu.displayMenuInGame();
-                    letPlayChoice(choice2, personnage1, positionJoueur);
-                default:
-                    throw new IllegalStateException("Aucun personnage n'a été créé. Veuillez créer un personnage avant de poursuivre.");
-            }
-        } catch (Exception IllegalStateException) {
-            System.out.println(IllegalStateException.getMessage());
+    private void letPlayChoice(String choice, Character character, int playerPosition) {
+        switch (choice) {
+            case "1":
+                menu.quit();
+                break;
+            case "2":
+                System.out.println(character);
+                break;
+            case "3":
+                play(playerPosition);
+            case "4":
+                character.usePotion(menu);
+                String choice2 = menu.displayMenuDuringGame();
+                letPlayChoice(choice2, character1, playerPosition);
         }
     }
 
     private void addToPlateau() {
         for (int i = 0; i < 16; i++) {
-            plateau.add(new Classique());
+            board.add(new Classic());
         }
         for (int i = 0; i < 4; i++) {
-            plateau.add(new Dragon());
+            board.add(new Dragon());
         }
         for (int i = 0; i < 10; i++) {
-            plateau.add(new Sorcier());
+            board.add(new Witch());
         }
         for (int i = 0; i < 10; i++) {
-            plateau.add(new Gobelin());
+            board.add(new Goblin());
         }
         for (int i = 0; i < 5; i++) {
-            plateau.add(new Massue());
+            board.add(new Sledgehammer());
         }
         for (int i = 0; i < 4; i++) {
-            plateau.add(new Epee());
+            board.add(new Epee());
         }
         for (int i = 0; i < 5; i++) {
-            plateau.add(new Eclair());
+            board.add(new LightningBolt());
         }
         for (int i = 0; i < 2; i++) {
-            plateau.add(new BouleDeFeu());
+            board.add(new FireBall());
 
         }
         for (int i = 0; i < 6; i++) {
-            plateau.add(new PetitesPotions());
+            board.add(new SmallPotions());
         }
 
         for (int i = 0; i < 2; i++) {
-            plateau.add(new GrandePotions());
+            board.add(new BigPotions());
         }
-        Collections.shuffle(plateau);
+        Collections.shuffle(board);
     }
 
-    public void play(int positionJoueur) throws PersonnageHorsPlateauException {
+    public void play(int playerPosition) {
 
-        while (positionJoueur < plateau.size()) {
+        while (playerPosition < board.size()) {
 
             int valueDice = dice(6);
-            positionJoueur += valueDice;
+            playerPosition += valueDice;
 
-            if (positionJoueur > plateau.size() - 1) {
-                menu.displayFin();
+            if (playerPosition > board.size() - 1) {
+                menu.displayEndGame();
                 replayGame();
                 return;
-            } else if (positionJoueur == plateau.size() - 1) {
-                caseInteraction(valueDice, positionJoueur);
-                menu.displayFin();
+            } else if (playerPosition == board.size() - 1) {
+                interactCase(valueDice, playerPosition);
+                menu.displayEndGame();
             } else {
-                caseInteraction(valueDice, positionJoueur);
+                interactCase(valueDice, playerPosition);
             }
 
-            String choice = menu.displayMenuInGame();
-            letPlayChoice(choice, personnage1, positionJoueur);
+            String choice = menu.displayMenuDuringGame();
+            letPlayChoice(choice, character1, playerPosition);
         }
     }
 
@@ -158,19 +139,19 @@ public class Game {
     }
 
     public void resetCase(int positionJoueur) {
-        plateau.set(positionJoueur, new Classique());
+        board.set(positionJoueur, new Classic());
     }
 
-    public void caseInteraction(int valueDice, int position) {
-        Case ceQuilYaSurLaCase = plateau.get(position);
-        menu.displayAvancement(valueDice, position, personnage1);
-        ceQuilYaSurLaCase.interact(personnage1, menu);
-        if (ceQuilYaSurLaCase instanceof Ennemis) {
+    public void interactCase(int valueDice, int position) {
+        Interactable whatCaseItIs = board.get(position);
+        menu.displayGameProgress(valueDice, position, character1);
+        whatCaseItIs.interact(character1, menu);
+        if (whatCaseItIs instanceof Ennemies) {
             resetCase(position);
         }
     }
 
-    public void replayGame() throws PersonnageHorsPlateauException {
+    public void replayGame(){
         String choice = menu.displayMenuReplay();
         switch (choice) {
             case "1":
@@ -178,14 +159,14 @@ public class Game {
                 break;
             case "2":
                 resetPlateauAndPosition();
-                play(positionJoueur);
+                play(playerPosition);
         }
     }
 
     public void resetPlateauAndPosition() {
-        plateau.clear();
+        board.clear();
         addToPlateau();
-        positionJoueur = -1;
+        playerPosition = -1;
     }
 
 }

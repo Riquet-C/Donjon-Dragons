@@ -1,8 +1,8 @@
-package equipements.defensif;
+package equipments.defensive;
 
-abstract public class EquipementDefensif {
+abstract public class DefensiveEquipment {
     private String type;
-    private int niveauDefence;
+    private int defenseLevel;
     private String name;
 
     // attributs couleurs
@@ -15,7 +15,7 @@ abstract public class EquipementDefensif {
         return ANSI_PURPLE + "Equipement Offensif: " + ANSI_RESET +
                 "\nname: " + name + "\n" +
                 "type: " + type + "\n" +
-                "niveau de défence: +" + niveauDefence;
+                "niveau de défence: +" + defenseLevel;
     }
 
     // Setter & Getter
@@ -27,12 +27,12 @@ abstract public class EquipementDefensif {
         this.type = type;
     }
 
-    public int getniveauDefence() {
-        return niveauDefence;
+    public int getDefenseLevel() {
+        return defenseLevel;
     }
 
-    public void setniveauDefence(int niveauDefence) {
-        this.niveauDefence = niveauDefence;
+    public void setDefenseLevel(int niveauDefence) {
+        this.defenseLevel = niveauDefence;
     }
 
     public String getName() {
