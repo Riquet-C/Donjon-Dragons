@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"character"},{"l":"equipments.defensive"},{"l":"equipments.offensive"},{"l":"equipments.potion"},{"l":"interactable"},{"l":"interactable.ennemies"},{"l":"play"}];updateSearchResults();

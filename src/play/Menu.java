@@ -1,7 +1,5 @@
 package play;
 
-import equipments.offensive.OffensiveEquipment;
-import equipments.potion.Potions;
 import character.*;
 import character.Character;
 
@@ -11,22 +9,32 @@ import java.util.Scanner;
 
 import static java.lang.Thread.sleep;
 
+/**
+ * The Menu class handles the display and management of various game menus.
+ * It allows for user interaction through the console, facilitating character creation, modification,
+ * and displaying game progress and results.
+ */
 public class Menu {
-    // attributs couleurs
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_RESET = "\u001B[0m";
     private final Scanner scanner;
 
+    /**
+     * Constructs a new Menu instance and initializes the scanner for user input.
+     */
     public Menu() {
         scanner = new Scanner(System.in);
     }
 
-    // Menu affichage
-    private String ask(String question, List<String> availableAnswers) throws Exception {
+    /**
+     * Prompts the user for input based on the available answers.
+     *
+     * @param availableAnswers a list of valid answers
+     * @return the user's answer
+     * @throws Exception if no valid answers are available or if the input is not acceptable
+     */
+    private String ask(List<String> availableAnswers) throws Exception {
         if (availableAnswers == null || availableAnswers.isEmpty()) {
             throw new Exception("No possible answers available");
         }
-        System.out.println(question);
         String answer = scanner.nextLine();
         if (!availableAnswers.contains(answer)) {
             throw new Exception("Not acceptable answer");
@@ -34,54 +42,77 @@ public class Menu {
         return answer;
     }
 
+    /**
+     * Displays the start menu and prompts the user for a selection.
+     *
+     * @return the user's choice from the start menu
+     */
     public String displayStart() {
-        String question = String.valueOf(GameMenu.START_MENU);
+        GameMenu.START_MENU.display();
         List<String> availableAnswers = new ArrayList<>(List.of("1", "2"));
         try {
-            return ask(question, availableAnswers);
+            return ask(availableAnswers);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return displayStart();
         }
     }
 
+    /**
+     * Displays the modification menu and prompts the user for a selection.
+     *
+     * @return the user's choice from the modification menu
+     */
     public String displayMenuModify() {
-        String question = String.valueOf(GameMenu.MODIFY_MENU);
+        GameMenu.MODIFY_MENU.display();
         List<String> availableAnswers = new ArrayList<>(List.of("1", "2", "3"));
         try {
-            return ask(question, availableAnswers);
+            return ask(availableAnswers);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return displayMenuModify();
         }
     }
 
+    /**
+     * Displays the game menu during gameplay and prompts the user for a selection.
+     *
+     * @return the user's choice from the game menu
+     */
     public String displayMenuDuringGame() {
-        String question = String.valueOf(GameMenu.GAME_MENU);
+        GameMenu.GAME_MENU.display();
         List<String> availableAnswers = new ArrayList<>(List.of("1", "2", "3", "4"));
         try {
-            return ask(question, availableAnswers);
+            return ask(availableAnswers);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return displayMenuDuringGame();
         }
     }
 
+    /**
+     * Displays the replay menu and prompts the user for a selection.
+     *
+     * @return the user's choice from the replay menu
+     */
     public String displayMenuReplay() {
-        String question = String.valueOf(GameMenu.REPLAY_MENU);
+        GameMenu.REPLAY_MENU.display();
         List<String> availableAnswers = new ArrayList<>(List.of("1", "2"));
         try {
-            return ask(question, availableAnswers);
+            return ask(availableAnswers);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return displayMenuReplay();
         }
     }
 
-    // creer personnage (appeler par Start)
+    /**
+     * Creates a new character based on user input for name and type.
+     *
+     * @return the newly created Character instance
+     */
     public Character createPersonnage() {
-
-        // Choix du Nom
+        // Choose a name
         System.out.println("Ecrire votre nom:");
         String name = scanner.nextLine();
 
@@ -92,9 +123,11 @@ public class Menu {
             case "":
                 name = "Toto";
                 break;
+            default:
+                break;
         }
 
-        // Choix du type de perso
+        // Choose character type
         System.out.println("Choisissez votre type: 1 = Guerrier ou 2 = Magicien");
         String type = scanner.nextLine();
 
@@ -116,9 +149,12 @@ public class Menu {
         return character1;
     }
 
-    // modifier personnage
+    /**
+     * Modifies an existing character based on user input.
+     *
+     * @param character the Character instance to be modified
+     */
     public void modifyCharacter(Character character) {
-
         System.out.println("Ecrire votre nom:");
         String name = scanner.nextLine();
 
@@ -140,6 +176,8 @@ public class Menu {
                     case "2":
                         character = new Wizards(character.getName());
                         break;
+                    default:
+                        break;
                 }
 
                 break;
@@ -151,71 +189,66 @@ public class Menu {
         System.out.println(character);
     }
 
-    // Affichage durant le jeu
+    /**
+     * Displays the progress of the game, including the value of the dice roll and the character's position.
+     *
+     * @param valueDice      the value rolled on the dice
+     * @param positionJoueur the current position of the player
+     * @param character      the Character instance representing the player
+     */
     public void displayGameProgress(int valueDice, int positionJoueur, Character character) {
         System.out.println("+-----+\n" + "|  " + valueDice + "  |\n" + "+-----+");
         try {
-            sleep(400);  // Ajout du sleep avec une gestion d'exception
+            sleep(400);  // Add sleep with exception handling
         } catch (InterruptedException e) {
             System.out.println("Le processus a été interrompu : " + e.getMessage());
         }
         System.out.println(character.getName() + " avance à la case: " + (positionJoueur + 1));
     }
 
+    /**
+     * Displays the end game message indicating victory.
+     */
     public void displayEndGame() {
         try {
-            sleep(400);  // Ajout du sleep avec une gestion d'exception
+            sleep(400);  // Add sleep with exception handling
         } catch (InterruptedException e) {
             System.out.println("Le processus a été interrompu : " + e.getMessage());
         }
-        System.out.println("Vous avez gagné !" + "\n" + "                                                     //\n" + "                           _                        //\n" + "                        ,-'_`----,_                //\n" + "                       (  _~d~~_/ '~-----,        //\n" + "                       (_<_~~~~_,----==='        //\n" + "                  __    /  ~~~~=--~~~~          //\n" + "                 /  \\   |   /~~                //\n" + "                 \\_ |   \\   \\                 //\n" + "                 (_ |    \\   \\_              //\n" + "                   L|     \\_   \\_           //\n" + "                   ||       \\_   \\_        //\n" + "               _____U         \\_   \\_     //\n" + "              |  __ \\           \\_   \\_  //\n" + "              |  \\_\\_|            \\_   \\//\n" + "              |______|              \\_ //_\n" + "              |_______\\               //  \\\n" + "               |  |    \\             //\\   \\\n" + "               |  |     \\-_         //  |   \\\n" + "               |  '-,_ / / ,-______//   |__  \\\n" + "               \\----  '-/_/ /||||_  ~),-   ~--\\\n" + "                ~\\_      /-/_'~~~/\\_)/_/       ~\\\n" + "           _       \\_   /  / /~~/ /-__ `-/_  ,   |\n" + "         _/ ),--,    \\_/  /  | / //   -,__ `/_ | |\n" + "        /   ',-, |,_   \\_/  / / //    /   \\  \\// |\n" + "       /      _)    )-~~(   |/ /_Z--_/_   /    `/\n" + "      |  /    _~) /~    -`--/ /~ \\   \\ ~-/      |\n" + "      | /    ' ~,,--,  (   / /`\\__\\_--~~~      |\n" + "      \\|        /      )  / /~~              _/\n" + "        \\_            / _/ /          \\    _/\n" + "          \\          | // /            | _/\n" + "           `-__/     |// /            /_-\n" + "              `--,__/ / /          __--\n" + "                 _-' / /       __--\n" + "              _-'   / /    __--\n" + "           _-'     / / __-- --___\n" + "        _-'   ___-/ /--  ~~~---__`--,___\n" + "      _/   __/,--/ /,--,--_____ _~`-----'-----,\n" + "   ,-~ __,- _//_/ //__/__/_/_/_//~~~~--r-,.\\  )\n" + "  |   /  _/~,/ / /             ~~~~~~~~`-`) | (\n" + "  \\_,| ./ ,'  / /                       (~  o  )\n" + "  |_,|~|_/   / /                         ) _  /\n" + "  (_,|~||   / /                          |/ )/\n" + "  (_// /|  / /                           / /\n" + "  | | ||  / /                            |/\n" + "  / | || / /\n" + " /  | ||/ /      \n" + "(_ | ,'/ /  \n" + "( `/ ||\\/             \n" + " \\/ | \\_\n" + " |  \\_  `_\n" + "  \\ ,-,\\,-,`,\n" + "   \\_\\_\\\\\\ \\ \\\n" + "    ~~~~~~~~~~~");
+        System.out.println("Vous avez gagné !");
     }
 
-    // Affichage sur Case Potion
+    /**
+     * Displays the potion choice question and prompts the user for a selection.
+     *
+     * @return the user's choice regarding the potion
+     */
     public String displayChoicePotion() {
-        String question = String.valueOf(GameMenu.POTION_QUESTION);
+        GameMenu.POTION_QUESTION.display();
         List<String> availableAnswers = new ArrayList<>(List.of("1", "2"));
         try {
-            return ask(question, availableAnswers);
+            return ask(availableAnswers);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return displayChoicePotion();
         }
     }
 
-    public void displayUsePotion(Character character) {
-        System.out.println("Vous avez bu une potion, vos nouveaux pv sont: " + character.getLifePoints());
-
-    }
-
-    // Affichage sur Case Equipment Offensif
-    public void displayFindEquipmentOffensif(OffensiveEquipment newArme) {
-        System.out.println(newArme);
-    }
-
-    public void displayNewEquipmentOffensif(Character character) {
-        System.out.println("Voici votre nouvel arme: " + character.getOffensiveEquipment().getName() + "\nVotre nouvelle force d'attaque est: " + character.getAttackForce());
-    }
-
-
-    // Affichage sur Case Ennemi
-    public void displayCurrentBattle(int ennemiLife) {
-        System.out.println("L'ennemis à encore " + ennemiLife + " points de vies");
-    }
-
-    public void displayLifeAfterBattle(Character character) {
-        System.out.println("Il vous reste " + character.getLifePoints() + " points de vies");
-    }
-
-
-    // de quoi eviter la redondance dans le menu lui même
+    /**
+     * Validates the character type input.
+     *
+     * @param type the type of character as a string
+     * @return true if the type is valid; otherwise, false
+     */
     public boolean isValideType(String type) {
         return type.equalsIgnoreCase("1") || type.equalsIgnoreCase("2");
     }
 
+    /**
+     * Exits the game and displays a farewell message.
+     */
     public void quit() {
-        System.out.println("Fin de la partie");
+        System.out.println("Fin de la partie !");
         System.exit(0);
     }
-
 }
