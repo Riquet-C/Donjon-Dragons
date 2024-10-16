@@ -1,0 +1,26 @@
+@startuml
+actor Player
+actor GameMaster as GM
+
+' Les cas d'utilisation principaux
+Player --> (Move Character)
+Player --> (Attack Enemy)
+Player --> (Pick up Item)
+Player --> (Start New Game)
+Player --> (End Game)
+
+' Interactions avec le GameMaster
+GM --> (Generate Board)
+GM --> (Place Enemies)
+GM --> (Place Items)
+GM --> (Manage Turns)
+
+' Extensions possibles
+(Player) .> (Use Special Ability) : <<extend>>
+(Use Special Ability) .> (Attack Enemy) : <<extend>>
+
+' Les relations
+(Player) --> (View Character Stats)
+(Player) --> (Choose Equipment)
+
+@enduml

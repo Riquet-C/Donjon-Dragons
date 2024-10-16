@@ -1,0 +1,140 @@
+@startuml
+
+interface Interactable {
+    + interact(character: Character, menu: Menu): void
+}
+
+ class Character {
+        - String name
+        - String type
+        + Character(String name, String type)
+        + void setName(String name)
+        + String getName()
+        + void setType(String type)
+        + String getType()
+    }
+
+
+abstract class Ennemies {
+    - attack: int
+    - life: int
+    - type: String
+    - name: String
+    + interact(character: Character, menu: Menu): void
+}
+
+class Dragon extends Ennemies {
+    + Dragon()
+}
+
+class Goblin extends Ennemies {
+    + Goblin()
+}
+
+class Witch extends Ennemies {
+    + Witch()
+}
+
+class Menu {
+    - Scanner scanner
+    + Menu()
+    + String ask(List<String> availableAnswers)
+    + String displayStart()
+    + String displayMenuModify()
+    + String displayMenuDuringGame()
+    + String displayMenuReplay()
+    + Character createPersonnage()
+    + void modifyCharacter(Character character)
+    + void displayGameProgress(int valueDice, int positionJoueur, Character character)
+    + void displayEndGame()
+    + String displayChoicePotion()
+    + boolean isValideType(String type)
+    + void quit()
+}
+
+class Game {
+    - board: List<Interactable>
+    - menu: Menu
+    - character1: Character
+    - playerPosition: int
+    + Game()
+    + initGame(): void
+    + play(playerPosition: int): void
+    - addToPlateau(): void
+    - resetCase(playerPosition: int): void
+    - interactCase(valueDice: int, position: int): void
+}
+
+enum GameMenu {
+    + ANSI_PURPLE: String
+    + ANSI_RESET: String
+    + STRING_MENU: String
+    + START_MENU: String
+    + MODIFY_MENU: String
+    + GAME_MENU: String
+    + REPLAY_MENU: String
+    + POTION_QUESTION: String
+    + POTION_REFUSE: String
+    + POTION_TAKE: String
+    + EMPTY_INVENTORY: String
+    + EQUIPMENTS_NOBETTER: String
+    + EQUIPMENTS_NOTAUTHORIZE: String
+    + EQUIPMENTS_NEW: String
+    + EQUIPMENTS_FIND: String
+    + BATTLE_VICTORY: String
+    + BATTLE_ENNEMYLIFE: String
+    + BATTLE_CHARACTERLIFE: String
+    + GAME_OVER: String
+    - message: String
+    + GameMenu(String message)
+    + display(Object... parameters): void
+}
+
+class Main {
+    + main(String[] args): void
+}
+
+abstract class OffensiveEquipment implements Interactable {
+    - String type
+    - int attackLevel
+    - String name
+    + void modifyOffensiveEquipment(Character character, OffensiveEquipment newWeapon)
+    + String getName()
+    + int getAttackLevel()
+    + void setName(String name)
+    + void setAttackLevel(int attackLevel)
+    + void setType(String type)
+}
+
+class Epee extends OffensiveEquipment {
+    + Epee()
+    + void interact(Character character, Menu menu)
+}
+
+class Fireball extends OffensiveEquipment {
+    + Fireball()
+    + void interact(Character character, Menu menu)
+}
+
+class LightningBolt extends OffensiveEquipment {
+    + LightningBolt()
+    + void interact(Character character, Menu menu)
+}
+
+Menu --> Game : 1
+Game --> Character : 1
+Game --> Interactable : 0..*
+Interactable <|-- Ennemies
+Interactable <|-- OffensiveEquipment
+Ennemies <|-- Dragon
+Ennemies <|-- Goblin
+Ennemies <|-- Witch
+OffensiveEquipment <|-- Epee
+OffensiveEquipment <|-- Fireball
+OffensiveEquipment <|-- LightningBolt
+
+Character "1" -- "0..1" OffensiveEquipment : possesses >
+Character "1" -- "0..*" Ennemies : interacts with >
+
+
+@enduml
