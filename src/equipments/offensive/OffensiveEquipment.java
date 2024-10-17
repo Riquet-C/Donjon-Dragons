@@ -2,7 +2,7 @@ package equipments.offensive;
 
 import interactable.Interactable;
 import character.Character;
-import play.GameMenu;
+import play.GameDisplay;
 
 /**
  * The OffensiveEquipment class serves as an abstract base class for all offensive equipment
@@ -36,9 +36,9 @@ public abstract class OffensiveEquipment implements Interactable {
         if (character.getOffensiveEquipment() == null || character.getOffensiveEquipment().getAttackLevel() < getAttackLevel()) {
             character.setOffensiveEquipment(newWeapon);
             character.setAttackForce(getAttackLevel() + character.getAttackForce());
-            GameMenu.EQUIPMENTS_NEW.display(character.getOffensiveEquipment().getName(), character.getAttackForce());
+            GameDisplay.EQUIPMENTS_NEW.display(character.getOffensiveEquipment().getName(), character.getAttackForce());
         } else {
-            GameMenu.EQUIPMENTS_NOBETTER.display();
+            GameDisplay.EQUIPMENTS_NOBETTER.display();
         }
     }
 

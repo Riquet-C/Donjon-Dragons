@@ -2,7 +2,7 @@ package equipments.potion;
 
 import interactable.*;
 import character.Character;
-import play.GameMenu;
+import play.GameDisplay;
 import play.Menu;
 
 /**
@@ -45,10 +45,10 @@ public abstract class Potions implements Interactable {
         switch (choice) {
             case "1":
                 character.setLifePoints(character.getLifePoints() + addLife);
-                GameMenu.POTION_TAKE.display(this.getName(), character.getLifePoints());
+                GameDisplay.POTION_TAKE.display(this.getName(), character.getLifePoints());
                 break;
             case "2":
-                GameMenu.POTION_REFUSE.display();
+                GameDisplay.POTION_REFUSE.display();
                 character.addPotion(this);
                 break;
             default:

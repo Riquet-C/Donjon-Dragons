@@ -3,7 +3,7 @@ package character;
 import equipments.defensive.DefensiveEquipment;
 import equipments.offensive.OffensiveEquipment;
 import equipments.potion.Potions;
-import play.GameMenu;
+import play.GameDisplay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,11 +78,11 @@ public abstract class Character {
      */
     public void usePotion() {
         if (inventory.isEmpty()) {
-            GameMenu.EMPTY_INVENTORY.display();
+            GameDisplay.EMPTY_INVENTORY.display();
             return;
         }
         setLifePoints(getLifePoints() + inventory.getFirst().getAddLife());
-        GameMenu.POTION_TAKE.display(inventory.getFirst().getName(), this.getLifePoints());
+        GameDisplay.POTION_TAKE.display(inventory.getFirst().getName(), this.getLifePoints());
         inventory.removeFirst();
     }
 

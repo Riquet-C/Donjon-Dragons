@@ -1,6 +1,8 @@
 package interactable;
 
 import character.Character;
+import equipments.offensive.Epee;
+import play.Game;
 import play.Menu;
 
 /**
@@ -9,11 +11,13 @@ import play.Menu;
  * for the interact method.
  */
 public interface Interactable {
+
     /**
      * Performs an interaction with a character using the provided menu.
      *
      * @param character the Character instance representing the player
      * @param menu the Menu instance used for user interactions
      */
+
     void interact(Character character, Menu menu);
 }

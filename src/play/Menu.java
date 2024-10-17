@@ -48,7 +48,7 @@ public class Menu {
      * @return the user's choice from the start menu
      */
     public String displayStart() {
-        GameMenu.START_MENU.display();
+        GameDisplay.START_MENU.display();
         List<String> availableAnswers = new ArrayList<>(List.of("1", "2"));
         try {
             return ask(availableAnswers);
@@ -64,7 +64,7 @@ public class Menu {
      * @return the user's choice from the modification menu
      */
     public String displayMenuModify() {
-        GameMenu.MODIFY_MENU.display();
+        GameDisplay.MODIFY_MENU.display();
         List<String> availableAnswers = new ArrayList<>(List.of("1", "2", "3"));
         try {
             return ask(availableAnswers);
@@ -80,7 +80,7 @@ public class Menu {
      * @return the user's choice from the game menu
      */
     public String displayMenuDuringGame() {
-        GameMenu.GAME_MENU.display();
+        GameDisplay.GAME_MENU.display();
         List<String> availableAnswers = new ArrayList<>(List.of("1", "2", "3", "4"));
         try {
             return ask(availableAnswers);
@@ -96,7 +96,19 @@ public class Menu {
      * @return the user's choice from the replay menu
      */
     public String displayMenuReplay() {
-        GameMenu.REPLAY_MENU.display();
+        GameDisplay.REPLAY_MENU.display();
+        List<String> availableAnswers = new ArrayList<>(List.of("1", "2"));
+        try {
+            return ask(availableAnswers);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return displayMenuReplay();
+        }
+    }
+
+
+    public String displayMenuBattle(){
+        GameDisplay.REPLAY_BATTLE.display();
         List<String> availableAnswers = new ArrayList<>(List.of("1", "2"));
         try {
             return ask(availableAnswers);
@@ -224,7 +236,7 @@ public class Menu {
      * @return the user's choice regarding the potion
      */
     public String displayChoicePotion() {
-        GameMenu.POTION_QUESTION.display();
+        GameDisplay.POTION_QUESTION.display();
         List<String> availableAnswers = new ArrayList<>(List.of("1", "2"));
         try {
             return ask(availableAnswers);

@@ -1,8 +1,9 @@
 package equipments.offensive;
 
 import character.Character;
-import play.GameMenu;
+import play.GameDisplay;
 import play.Menu;
+
 import java.util.Objects;
 
 /**
@@ -30,11 +31,11 @@ public class Sledgehammer extends OffensiveEquipment {
      */
     @Override
     public void interact(Character character, Menu menu) {
-        GameMenu.EQUIPMENTS_FIND.display(this.getName());
+        GameDisplay.EQUIPMENTS_FIND.display(this.getName());
         if (Objects.equals(character.getType(), "Guerrier")) {
             modifyOffensiveEquipment(character, this);
         } else {
-            GameMenu.EQUIPMENTS_NOTAUTHORIZE.display();
+            GameDisplay.EQUIPMENTS_NOTAUTHORIZE.display();
         }
     }
 }

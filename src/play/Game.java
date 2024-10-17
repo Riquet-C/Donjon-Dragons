@@ -28,6 +28,9 @@ public class Game {
      * player-created character.
      */
     private Character character1;
+
+    private GameStatus status;
+
     /**
      * Actual player position
      */
@@ -40,6 +43,7 @@ public class Game {
         menu = new Menu();
         board = new ArrayList<>();
         addToPlateau();
+        status = GameStatus.GAME;
     }
 
 
@@ -126,6 +130,8 @@ public class Game {
         }
     }
 
+
+
     /**
      * Add object on the Board (Ennemies, Surprise or Classique)
      */
@@ -196,6 +202,7 @@ public class Game {
 
     /**
      * roll the dice with random
+     *
      * @return the result of random between 1 and 6
      */
     private int dice() {
@@ -205,6 +212,7 @@ public class Game {
 
     /**
      * Removes the enemy killed by the player from the square
+     *
      * @param playerPosition Actual player position
      */
     public void resetCase(int playerPosition) {
@@ -213,15 +221,29 @@ public class Game {
 
     /**
      * Interaction with the board square
+     *
      * @param valueDice Value of dice return by method dice
-     * @param position Actual player position
+     * @param position  Actual player position
      */
     public void interactCase(int valueDice, int position) {
         Interactable whatCaseItIs = board.get(position);
         menu.displayGameProgress(valueDice, position, character1);
         whatCaseItIs.interact(character1, menu);
-        if (whatCaseItIs instanceof Ennemies) {
-            resetCase(position);
+        if (whatCaseItIs instanceof Ennemies enemy) {
+            status = enemy.attackOrQuit(character1, menu);
+            if (enemy.getLife() <= 0){
+                resetCase(position);
+            } else if (status == GameStatus.HERO_FIGHT) {
+                whatCaseItIs.interact(character1, menu);
+            } else if (status == GameStatus.HERO_RETREAT) {
+                int valueDiceRetreat = dice();
+                playerPosition -= valueDiceRetreat;
+            } else if (status == GameStatus.HERO_DEAD){
+                menu.quit();
+            } else if (status == GameStatus.GAME) {
+                System.out.println("default");
+            }
+
         }
     }
 
@@ -251,7 +273,6 @@ public class Game {
         addToPlateau();
         playerPosition = -1;
     }
-
 }
 
 

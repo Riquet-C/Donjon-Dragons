@@ -2,9 +2,10 @@ package interactable.ennemies;
 
 import interactable.*;
 import character.Character;
-import play.Game;
-import play.GameMenu;
+import play.GameDisplay;
+import play.GameStatus;
 import play.Menu;
+
 
 /**
  * The Ennemies class is an abstract representation of an enemy in the game.
@@ -16,20 +17,26 @@ public abstract class Ennemies implements Interactable {
 
     private final int attack; // The attack power of the enemy
     private int life; // The life points of the enemy
-    private String type; // The type of the enemy
-    private String name; // The name of the enemy
+    private String name;// The name of the enemy
 
     /**
      * Constructs an instance of an enemy with the specified name, attack power, and life points.
      *
-     * @param nom the name of the enemy
+     * @param nom    the name of the enemy
      * @param attack the attack power of the enemy
-     * @param life the initial life points of the enemy
+     * @param life   the initial life points of the enemy
      */
     public Ennemies(String nom, int attack, int life) {
-        this.type = "Ennemies";
         this.name = nom;
         this.attack = attack;
+        this.life = life;
+    }
+
+    public int getLife() {
+        return life;
+    }
+
+    public void setLife(int life) {
         this.life = life;
     }
 
@@ -40,17 +47,16 @@ public abstract class Ennemies implements Interactable {
      * the enemy's attack. Displays the relevant battle status using the GameMenu.
      *
      * @param character the Character instance representing the player
-     * @param menu the Menu instance used for user interactions
+     * @param menu      the Menu instance used for user interactions
      */
     @Override
     public void interact(Character character, Menu menu) {
         life -= character.getAttackForce(); // Reduce enemy life based on character's attack
         if (life > 0) {
             character.setLifePoints(character.getLifePoints() - attack); // Character takes damage
-            GameMenu.BATTLE_ENNEMYLIFE.display(life); // Display remaining enemy life
-            updateCharacterLife(character, menu); // Check character's life
+            GameDisplay.BATTLE_ENNEMYLIFE.display(life); // Display remaining enemy life
         } else {
-            GameMenu.BATTLE_VICTORY.display(); // Display victory message
+            GameDisplay.BATTLE_VICTORY.display(); // Display victory message
         }
     }
 
@@ -60,14 +66,28 @@ public abstract class Ennemies implements Interactable {
      * the character's current life points or the game over message using the GameMenu.
      *
      * @param character the Character instance representing the player
-     * @param menu the Menu instance used for user interactions
+     * @param menu      the Menu instance used for user interactions
      */
-    private void updateCharacterLife(Character character, Menu menu) {
+    public GameStatus attackOrQuit(Character character, Menu menu) {
         if (character.getLifePoints() <= 0) {
-            GameMenu.GAME_OVER.display(); // Display game over message
-            menu.quit(); // End the game
+            GameDisplay.GAME_OVER.display(); // Display game over message
+            return GameStatus.HERO_DEAD;
         } else {
-            GameMenu.BATTLE_CHARACTERLIFE.display(character.getLifePoints()); // Display character's life
+            GameDisplay.BATTLE_CHARACTERLIFE.display(character.getLifePoints()); // Display character's life
+            String choice = menu.displayMenuBattle();
+            return switch (choice) {
+                case "1" -> GameStatus.HERO_RETREAT;
+                case "2" -> GameStatus.HERO_FIGHT;
+                default -> GameStatus.GAME;
+            };
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

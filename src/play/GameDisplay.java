@@ -8,7 +8,7 @@ package play;
  * les batailles et les états du jeu.
  * </p>
  */
-public enum GameMenu {
+public enum GameDisplay {
     // Code ANSI pour les couleurs
     ANSI_PURPLE("\u001B[35m"),
     ANSI_RESET("\u001B[0m"),
@@ -19,6 +19,7 @@ public enum GameMenu {
     MODIFY_MENU(ANSI_PURPLE.message + STRING_MENU.message + ANSI_RESET.message + "\n1. Quitter \n2. Modifier un personnage \n3. Jouer \nChoisissez une option:"),
     GAME_MENU(ANSI_PURPLE.message + STRING_MENU.message + ANSI_RESET.message + "\n1. Quitter \n2. Statistique du personnage \n3. Continuer \n4. Boire une potion \nChoisissez une option:"),
     REPLAY_MENU(ANSI_PURPLE.message + STRING_MENU.message + ANSI_RESET.message + "\n1. Quitter \n2. Rejouer \nChoisissez une option:"),
+    REPLAY_BATTLE(ANSI_PURPLE.message + STRING_MENU.message + ANSI_RESET.message + "\n1. Fuir \n2. Attaquer \nChoisissez une option:"),
 
     // Affichage Case Potion
     POTION_QUESTION(ANSI_PURPLE.message + "Vous trouvez un flacon mystérieux au sol. Un liquide rougeâtre bouillonne à l'intérieur." + ANSI_RESET.message + "\nQue faites-vous ? \n1. Boire la potion \n2. Garder la potion pour plus tard"),
@@ -37,7 +38,7 @@ public enum GameMenu {
     // Battle
     BATTLE_VICTORY("Bravo, vous avez tué l'ennemi sans être touché"),
     BATTLE_ENNEMYLIFE("L'ennemi a encore %d points de vie"),
-    BATTLE_CHARACTERLIFE("Il vous reste %d points de vie"),
+    BATTLE_CHARACTERLIFE("\nIl vous reste %d points de vie"),
 
     // Game Over
     GAME_OVER("Vous êtes mort.");
@@ -49,7 +50,7 @@ public enum GameMenu {
      *
      * @param message Le message à afficher pour chaque option de menu ou état de jeu.
      */
-    GameMenu(String message) {
+    GameDisplay(String message) {
         this.message = message;
     }
 
