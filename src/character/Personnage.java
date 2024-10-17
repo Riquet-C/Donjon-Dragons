@@ -15,7 +15,7 @@ import java.util.List;
  * This class serves as an abstract base class for specific character types,
  * such as Warriors and Wizards.
  */
-public abstract class Character {
+public abstract class Personnage {
 
     // Color attributes for console output
     public static final String ANSI_PURPLE = "\u001B[35m";
@@ -23,10 +23,15 @@ public abstract class Character {
 
     // Character attributes
     private final String name;
-    private final String type;
+    private String type;
     private int lifePoints;
     private int attackForce;
     private OffensiveEquipment offensiveEquipment;
+
+    public DefensiveEquipment getDefensiveEquipment() {
+        return defensiveEquipment;
+    }
+
     private DefensiveEquipment defensiveEquipment;
     private final List<Potions> inventory;
 
@@ -36,7 +41,7 @@ public abstract class Character {
      * @param name the name of the character
      * @param type the type of the character
      */
-    protected Character(String name, String type) {
+    protected Personnage(String name, String type) {
         this.name = name;
         this.type = type;
         this.inventory = new ArrayList<>();
@@ -105,7 +110,7 @@ public abstract class Character {
      * @return the updated type
      */
     public String setType(String type) {
-        return type;
+        return this.type = type;
     }
 
     /**
@@ -188,4 +193,5 @@ public abstract class Character {
     public void setAttackForce(int attackForce) {
         this.attackForce = attackForce;
     }
+
 }

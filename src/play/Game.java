@@ -4,7 +4,7 @@ package play;
 import interactable.ennemies.*;
 import equipments.offensive.*;
 import equipments.potion.*;
-import character.Character;
+import character.Personnage;
 
 import java.util.*;
 
@@ -27,7 +27,7 @@ public class Game {
     /**
      * player-created character.
      */
-    private Character character1;
+    private Personnage character1;
 
     private GameStatus status;
 
@@ -43,7 +43,7 @@ public class Game {
         menu = new Menu();
         board = new ArrayList<>();
         addToPlateau();
-        status = GameStatus.GAME;
+        status = GameStatus.GAME_INIT;
     }
 
 
@@ -84,7 +84,7 @@ public class Game {
      * @param choice    Player choice as String
      * @param character player-created character.
      */
-    private void letModifyChoice(String choice, Character character) {
+    private void letModifyChoice(String choice, Personnage character) {
         switch (choice) {
             case "1":
                 menu.quit();
@@ -109,7 +109,7 @@ public class Game {
      * @param character      player-created character.
      * @param playerPosition Actual player position
      */
-    private void letPlayChoice(String choice, Character character, int playerPosition) {
+    private void letPlayChoice(String choice, Personnage character, int playerPosition) {
         switch (choice) {
             case "1":
                 menu.quit();
@@ -233,17 +233,18 @@ public class Game {
             status = enemy.attackOrQuit(character1, menu);
             if (enemy.getLife() <= 0){
                 resetCase(position);
-            } else if (status == GameStatus.HERO_FIGHT) {
-                whatCaseItIs.interact(character1, menu);
-            } else if (status == GameStatus.HERO_RETREAT) {
-                int valueDiceRetreat = dice();
-                playerPosition -= valueDiceRetreat;
-            } else if (status == GameStatus.HERO_DEAD){
-                menu.quit();
-            } else if (status == GameStatus.GAME) {
-                System.out.println("default");
             }
-
+            switch (status){
+                case HERO_FIGHT:
+                    whatCaseItIs.interact(character1, menu);
+                    break;
+                case HERO_RETREAT:
+                    int valueDiceRetreat = dice();
+                    playerPosition -= valueDiceRetreat;
+                    break;
+                case HERO_DEAD:
+                    menu.quit();
+            }
         }
     }
 

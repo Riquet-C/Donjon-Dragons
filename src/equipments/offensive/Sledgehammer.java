@@ -1,6 +1,6 @@
 package equipments.offensive;
 
-import character.Character;
+import character.Personnage;
 import play.GameDisplay;
 import play.Menu;
 
@@ -30,7 +30,7 @@ public class Sledgehammer extends OffensiveEquipment {
      * @param menu The menu context in which the interaction occurs.
      */
     @Override
-    public void interact(Character character, Menu menu) {
+    public void interact(Personnage character, Menu menu) {
         GameDisplay.EQUIPMENTS_FIND.display(this.getName());
         if (Objects.equals(character.getType(), "Guerrier")) {
             modifyOffensiveEquipment(character, this);

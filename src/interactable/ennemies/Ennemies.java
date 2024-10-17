@@ -1,7 +1,7 @@
 package interactable.ennemies;
 
 import interactable.*;
-import character.Character;
+import character.Personnage;
 import play.GameDisplay;
 import play.GameStatus;
 import play.Menu;
@@ -50,7 +50,7 @@ public abstract class Ennemies implements Interactable {
      * @param menu      the Menu instance used for user interactions
      */
     @Override
-    public void interact(Character character, Menu menu) {
+    public void interact(Personnage character, Menu menu) {
         life -= character.getAttackForce(); // Reduce enemy life based on character's attack
         if (life > 0) {
             character.setLifePoints(character.getLifePoints() - attack); // Character takes damage
@@ -68,19 +68,19 @@ public abstract class Ennemies implements Interactable {
      * @param character the Character instance representing the player
      * @param menu      the Menu instance used for user interactions
      */
-    public GameStatus attackOrQuit(Character character, Menu menu) {
+    public GameStatus attackOrQuit(Personnage character, Menu menu) {
+        // Early return
         if (character.getLifePoints() <= 0) {
             GameDisplay.GAME_OVER.display(); // Display game over message
             return GameStatus.HERO_DEAD;
-        } else {
-            GameDisplay.BATTLE_CHARACTERLIFE.display(character.getLifePoints()); // Display character's life
-            String choice = menu.displayMenuBattle();
-            return switch (choice) {
-                case "1" -> GameStatus.HERO_RETREAT;
-                case "2" -> GameStatus.HERO_FIGHT;
-                default -> GameStatus.GAME;
-            };
         }
+        GameDisplay.BATTLE_CHARACTERLIFE.display(character.getLifePoints()); // Display character's life
+        String choice = menu.displayMenuBattle();
+        return switch (choice) {
+            case "1" -> GameStatus.HERO_RETREAT;
+            case "2" -> GameStatus.HERO_FIGHT;
+            default -> GameStatus.GAME_INIT;
+        };
     }
 
     public String getName() {

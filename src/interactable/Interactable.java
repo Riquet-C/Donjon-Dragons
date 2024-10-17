@@ -1,8 +1,6 @@
 package interactable;
 
-import character.Character;
-import equipments.offensive.Epee;
-import play.Game;
+import character.Personnage;
 import play.Menu;
 
 /**
@@ -19,5 +17,5 @@ public interface Interactable {
      * @param menu the Menu instance used for user interactions
      */
 
-    void interact(Character character, Menu menu);
+    void interact(Personnage character, Menu menu);
 }

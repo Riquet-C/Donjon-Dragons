@@ -1,7 +1,7 @@
 package equipments.offensive;
 
 import interactable.Interactable;
-import character.Character;
+import character.Personnage;
 import play.GameDisplay;
 
 /**
@@ -32,7 +32,7 @@ public abstract class OffensiveEquipment implements Interactable {
      * @param character The character whose offensive equipment is being modified.
      * @param newWeapon The new OffensiveEquipment to be equipped.
      */
-    protected void modifyOffensiveEquipment(Character character, OffensiveEquipment newWeapon) {
+    protected void modifyOffensiveEquipment(Personnage character, OffensiveEquipment newWeapon) {
         if (character.getOffensiveEquipment() == null || character.getOffensiveEquipment().getAttackLevel() < getAttackLevel()) {
             character.setOffensiveEquipment(newWeapon);
             character.setAttackForce(getAttackLevel() + character.getAttackForce());

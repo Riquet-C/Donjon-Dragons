@@ -1,6 +1,6 @@
 package interactable;
 
-import character.Character;
+import character.Personnage;
 import play.Menu;
 
 /**
@@ -24,7 +24,7 @@ public class Classic implements Interactable {
      * @param menu the Menu instance used for user interactions
      */
     @Override
-    public void interact(Character character, Menu menu) {
+    public void interact(Personnage character, Menu menu) {
         System.out.println("Vous arrivez sur une clairière déserte, balayée par le vent. Rien ne semble s'y passer...");
         System.out.println("Le silence est inquiétant. Vous reprenez votre souffle avant de continuer.");
     }

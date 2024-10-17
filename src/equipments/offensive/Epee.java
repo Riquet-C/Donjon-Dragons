@@ -1,6 +1,6 @@
 package equipments.offensive;
 
-import character.Character;
+import character.Personnage;
 import play.GameDisplay;
 import play.Menu;
 
@@ -32,7 +32,7 @@ public class Epee extends OffensiveEquipment {
      * @param menu The menu used for displaying game messages.
      */
     @Override
-    public void interact(Character character, Menu menu) {
+    public void interact(Personnage character, Menu menu) {
         GameDisplay.EQUIPMENTS_FIND.display(this.getName());
         if (Objects.equals(character.getType(), "Guerrier")) {
             modifyOffensiveEquipment(character, this);

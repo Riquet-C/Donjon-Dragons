@@ -7,7 +7,7 @@ import equipments.defensive.Philtre;
  * which is a wizard. It extends the Character class and initializes
  * specific attributes for a wizard character.
  */
-public class Wizards extends Character {
+public class Wizards extends Personnage {
 
     /**
      * Constructs a Wizard character with a specified name.

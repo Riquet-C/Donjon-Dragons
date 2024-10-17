@@ -7,7 +7,7 @@ import equipments.defensive.Shield;
  * which is a warrior. It extends the Character class and initializes
  * specific attributes for a warrior character.
  */
-public class Warriors extends Character {
+public class Warriors extends Personnage {
 
     /**
      * Constructs a Warrior character with a specified name.

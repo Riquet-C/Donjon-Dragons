@@ -15,7 +15,7 @@ interface Interactable {
     }
 
 
-abstract class Ennemies {
+abstract class Ennemies implements Interactable {
     - attack: int
     - life: int
     - type: String
@@ -124,15 +124,6 @@ class LightningBolt extends OffensiveEquipment {
 Menu --> Game : 1
 Game --> Character : 1
 Game --> Interactable : 0..*
-Interactable <|-- Ennemies
-Interactable <|-- OffensiveEquipment
-Ennemies <|-- Dragon
-Ennemies <|-- Goblin
-Ennemies <|-- Witch
-OffensiveEquipment <|-- Epee
-OffensiveEquipment <|-- Fireball
-OffensiveEquipment <|-- LightningBolt
-
 Character "1" -- "0..1" OffensiveEquipment : possesses >
 Character "1" -- "0..*" Ennemies : interacts with >
 

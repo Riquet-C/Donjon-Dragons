@@ -1,7 +1,7 @@
 package equipments.potion;
 
 import interactable.*;
-import character.Character;
+import character.Personnage;
 import play.GameDisplay;
 import play.Menu;
 
@@ -40,7 +40,7 @@ public abstract class Potions implements Interactable {
      * @param menu     Le menu à afficher pour l'interaction.
      */
     @Override
-    public void interact(Character character, Menu menu) {
+    public void interact(Personnage character, Menu menu) {
         String choice = menu.displayChoicePotion();
         switch (choice) {
             case "1":

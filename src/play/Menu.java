@@ -1,7 +1,7 @@
 package play;
 
 import character.*;
-import character.Character;
+import character.Personnage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,7 +107,7 @@ public class Menu {
     }
 
 
-    public String displayMenuBattle(){
+    public String displayMenuBattle() {
         GameDisplay.REPLAY_BATTLE.display();
         List<String> availableAnswers = new ArrayList<>(List.of("1", "2"));
         try {
@@ -123,7 +123,7 @@ public class Menu {
      *
      * @return the newly created Character instance
      */
-    public Character createPersonnage() {
+    public Personnage createPersonnage() {
         // Choose a name
         System.out.println("Ecrire votre nom:");
         String name = scanner.nextLine();
@@ -143,7 +143,7 @@ public class Menu {
         System.out.println("Choisissez votre type: 1 = Guerrier ou 2 = Magicien");
         String type = scanner.nextLine();
 
-        Character character1 = null;
+        Personnage character1 = null;
 
         if (type.equalsIgnoreCase("quit")) {
             quit();
@@ -157,6 +157,9 @@ public class Menu {
             System.out.println("Votre choix ne correspond pas à Magicien ou Guerrier, un personnage va être généré automatiquement");
             character1 = new Warriors(name);
         }
+        DataBase dataBase = new DataBase();
+        dataBase.createHero(character1);
+
         System.out.println(character1);
         return character1;
     }
@@ -166,7 +169,7 @@ public class Menu {
      *
      * @param character the Character instance to be modified
      */
-    public void modifyCharacter(Character character) {
+    public void modifyCharacter(Personnage character) {
         System.out.println("Ecrire votre nom:");
         String name = scanner.nextLine();
 
@@ -208,7 +211,7 @@ public class Menu {
      * @param positionJoueur the current position of the player
      * @param character      the Character instance representing the player
      */
-    public void displayGameProgress(int valueDice, int positionJoueur, Character character) {
+    public void displayGameProgress(int valueDice, int positionJoueur, Personnage character) {
         System.out.println("+-----+\n" + "|  " + valueDice + "  |\n" + "+-----+");
         try {
             sleep(400);  // Add sleep with exception handling
