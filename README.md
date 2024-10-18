@@ -20,7 +20,7 @@ Welcome to the **Dungeons and Dragons in Java** project! This game is a text-bas
 
 ## Technologies Used
 
-- Java 11 or higher
+- Java 23
 - Standard Java libraries
 
 ## Installation
