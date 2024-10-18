@@ -1,7 +1,6 @@
 package play;
 
 import character.Personnage;
-
 import java.sql.*;
 
 public class DataBase {
@@ -31,11 +30,9 @@ public class DataBase {
                     character.setType(type);
                     character.setLifePoints(niveauVie);
                     character.setAttackForce(niveauForce);
-
                     if (armeSort != null) {
                         character.setOffensiveEquipment(armeSort);
                     }
-
                     if (bouclier != null) {
                         character.setDefensiveEquipment(bouclier);
                     }
