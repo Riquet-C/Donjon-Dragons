@@ -1,7 +1,9 @@
 package character;
 
 import equipments.defensive.DefensiveEquipment;
-import equipments.offensive.OffensiveEquipment;
+import equipments.defensive.Philtre;
+import equipments.defensive.Shield;
+import equipments.offensive.*;
 import equipments.potion.Potions;
 import play.GameDisplay;
 
@@ -22,7 +24,7 @@ public abstract class Personnage {
     public static final String ANSI_RESET = "\u001B[0m";
 
     // Character attributes
-    private final String name;
+    private String name;
     private String type;
     private int lifePoints;
     private int attackForce;
@@ -100,7 +102,7 @@ public abstract class Personnage {
      * @return the updated name
      */
     public String setName(String name) {
-        return name;
+        return this.name = name;
     }
 
     /**
@@ -140,6 +142,12 @@ public abstract class Personnage {
         this.defensiveEquipment = defensiveEquipment;
     }
 
+    public void setDefensiveEquipment(String name){
+        switch (name){
+            case "Philtre de défence" -> this.defensiveEquipment = new Philtre();
+            case "Bouclier" -> this.defensiveEquipment = new Shield();
+        }
+    }
     /**
      * Returns the offensive equipment of the character.
      *
@@ -158,6 +166,14 @@ public abstract class Personnage {
         this.offensiveEquipment = offensiveEquipment;
     }
 
+    public void setOffensiveEquipment(String name){
+        switch (name){
+            case "Epee" -> this.offensiveEquipment = new Epee();
+            case "FireBall" -> this.offensiveEquipment = new FireBall();
+            case "LightningBolt" -> this.offensiveEquipment = new LightningBolt();
+            case "Sledgehammer" -> this.offensiveEquipment = new Sledgehammer();
+        }
+    }
     /**
      * Returns the current life points of the character.
      *

@@ -2,6 +2,7 @@ package equipments.potion;
 
 import interactable.*;
 import character.Personnage;
+import play.DataBase;
 import play.GameDisplay;
 import play.Menu;
 
@@ -45,6 +46,8 @@ public abstract class Potions implements Interactable {
         switch (choice) {
             case "1":
                 character.setLifePoints(character.getLifePoints() + addLife);
+                DataBase dataBase = new DataBase();
+                dataBase.changeDuringGame(character);
                 GameDisplay.POTION_TAKE.display(this.getName(), character.getLifePoints());
                 break;
             case "2":

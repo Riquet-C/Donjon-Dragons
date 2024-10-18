@@ -42,6 +42,7 @@ public abstract class OffensiveEquipment implements Interactable {
         }
     }
 
+
     // Setter & Getter
 
     /**
@@ -85,7 +86,7 @@ public abstract class OffensiveEquipment implements Interactable {
      *
      * @param name The name to set for the equipment.
      */
-    protected void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 

@@ -15,7 +15,9 @@ public enum GameDisplay {
     STRING_MENU("\n=== Menu du Jeu ==="),
 
     // Affichage Menus
-    START_MENU(ANSI_PURPLE.message + STRING_MENU.message + ANSI_RESET.message + "\n1. Quitter \n2. Creer un personnage \nChoisissez une option:"),
+    START_MENU(ANSI_PURPLE.message + STRING_MENU.message + ANSI_RESET.message + "\n1. Quitter \n2. Creer un personnage \n3. Choisir un personnage existant \nChoisissez une option:"),
+    CHOICE_MENU(ANSI_PURPLE.message + STRING_MENU.message + ANSI_RESET.message + "\n1. Quitter \n2. Entrée le nom du personnage choisi \nChoisissez une option:"),
+
     MODIFY_MENU(ANSI_PURPLE.message + STRING_MENU.message + ANSI_RESET.message + "\n1. Quitter \n2. Modifier un personnage \n3. Jouer \nChoisissez une option:"),
     GAME_MENU(ANSI_PURPLE.message + STRING_MENU.message + ANSI_RESET.message + "\n1. Quitter \n2. Statistique du personnage \n3. Continuer \n4. Boire une potion \nChoisissez une option:"),
     REPLAY_MENU(ANSI_PURPLE.message + STRING_MENU.message + ANSI_RESET.message + "\n1. Quitter \n2. Rejouer \nChoisissez une option:"),

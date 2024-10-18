@@ -1,6 +1,7 @@
 package play;
 
 
+import character.Warriors;
 import interactable.ennemies.*;
 import equipments.offensive.*;
 import equipments.potion.*;
@@ -24,11 +25,13 @@ public class Game {
      * Menu for displaying options and retrieving player choices.
      */
     private final Menu menu;
+
+    private final DataBase dataBase;
+
     /**
      * player-created character.
      */
     private Personnage character1;
-
     private GameStatus status;
 
     /**
@@ -42,6 +45,7 @@ public class Game {
     public Game() {
         menu = new Menu();
         board = new ArrayList<>();
+        dataBase = new DataBase();
         addToPlateau();
         status = GameStatus.GAME_INIT;
     }
@@ -73,9 +77,19 @@ public class Game {
             case "2":
                 character1 = menu.createPersonnage();
                 break;
+            case "3":
+                String choice2 = menu.displayMenuChoiceCharacter();
+                letChoiceCharacterChoice(choice2);
             default:
                 break;
         }
+    }
+
+    private void letChoiceCharacterChoice(String choice) {
+        DataBase dataBase = new DataBase();
+        character1 = new Warriors("toto");
+        dataBase.getHero(choice, character1);
+        System.out.println(character1);
     }
 
     /**
@@ -129,7 +143,6 @@ public class Game {
                 break;
         }
     }
-
 
 
     /**
@@ -229,12 +242,13 @@ public class Game {
         Interactable whatCaseItIs = board.get(position);
         menu.displayGameProgress(valueDice, position, character1);
         whatCaseItIs.interact(character1, menu);
+        dataBase.changeDuringGame(character1);
         if (whatCaseItIs instanceof Ennemies enemy) {
             status = enemy.attackOrQuit(character1, menu);
-            if (enemy.getLife() <= 0){
+            if (enemy.getLife() <= 0) {
                 resetCase(position);
             }
-            switch (status){
+            switch (status) {
                 case HERO_FIGHT:
                     whatCaseItIs.interact(character1, menu);
                     break;

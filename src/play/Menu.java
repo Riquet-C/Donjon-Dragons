@@ -16,12 +16,13 @@ import static java.lang.Thread.sleep;
  */
 public class Menu {
     private final Scanner scanner;
-
+    private final DataBase dataBase;
     /**
      * Constructs a new Menu instance and initializes the scanner for user input.
      */
     public Menu() {
         scanner = new Scanner(System.in);
+        dataBase = new DataBase();
     }
 
     /**
@@ -49,13 +50,18 @@ public class Menu {
      */
     public String displayStart() {
         GameDisplay.START_MENU.display();
-        List<String> availableAnswers = new ArrayList<>(List.of("1", "2"));
+        List<String> availableAnswers = new ArrayList<>(List.of("1", "2", "3"));
         try {
             return ask(availableAnswers);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return displayStart();
         }
+    }
+
+    public String displayMenuChoiceCharacter(){
+        GameDisplay.CHOICE_MENU.display();
+        return scanner.nextLine();
     }
 
     /**
@@ -114,7 +120,7 @@ public class Menu {
             return ask(availableAnswers);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return displayMenuReplay();
+            return displayMenuBattle();
         }
     }
 
@@ -157,7 +163,8 @@ public class Menu {
             System.out.println("Votre choix ne correspond pas à Magicien ou Guerrier, un personnage va être généré automatiquement");
             character1 = new Warriors(name);
         }
-        DataBase dataBase = new DataBase();
+
+        assert character1 != null;
         dataBase.createHero(character1);
 
         System.out.println(character1);
@@ -201,6 +208,8 @@ public class Menu {
                 System.out.println("Votre choix n'est pas valide. Veuillez choisir 1 ou 2");
             }
         }
+
+        dataBase.editHero(character);
         System.out.println(character);
     }
 
