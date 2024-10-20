@@ -26,12 +26,12 @@ Welcome to the **Dungeons and Dragons in Java** project! This game is a text-bas
 ## Installation
 
    ```bash
-   git clone https://github.com/your-username/repo-name.git
+   git clone https://github.com/Riquet-C/Donjon-Dragons.git
    cd repo-name
    ```
    
 ## Usage
    ```bash
-   javac src/com/yourpackage/Main.java
-  java -cp src com.yourpackage.Main
+   javac Main.java
+  java -cp Main
   ```
