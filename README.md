@@ -27,7 +27,7 @@ Welcome to the **Dungeons and Dragons in Java** project! This game is a text-bas
 
    ```bash
    git clone https://github.com/Riquet-C/Donjon-Dragons.git
-   cd repo-name
+   cd Donjon-Dragons
    ```
    
 ## Usage
